@@ -3,15 +3,25 @@ package com.bupt;
 import com.bupt.bean.Person;
 import com.bupt.config.MainConfig;
 import com.bupt.config.MainConfig2;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.Environment;
+
+import java.util.Map;
 
 public class IOCTest {
 
+    ApplicationContext applicationContext;
+
+    @Before
+    public void before() {
+        applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
+    }
+
     @Test
     public void test01() {
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
         String[] names = applicationContext.getBeanDefinitionNames();
         for(String name: names) {
             System.out.println(name);
@@ -21,15 +31,36 @@ public class IOCTest {
 
     @Test
     public void test02() {
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
 
         System.out.println("ioc容器创建完成");
         Person person = applicationContext.getBean(Person.class);
         Person person2 = applicationContext.getBean(Person.class);
 //        System.out.println(person);
-//        System.out.println(person == person2);
+        System.out.println(person == person2);
 
     }
 
+    @Test
+    public void test03() {
+        Environment environment = applicationContext.getEnvironment();
+        String os = environment.getProperty("os.name");
+        System.out.println(os);
+        Map<String, Person> map = applicationContext.getBeansOfType(Person.class);
+        System.out.println(map);
+
+
+    }
+    @Test
+    public void test04() {
+        printBean(applicationContext);
+
+    }
+
+    private void printBean(ApplicationContext applicationContext) {
+        String[] names = applicationContext.getBeanDefinitionNames();
+        for(String name: names) {
+            System.out.println(name);
+        }
+    }
 
 }

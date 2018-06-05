@@ -1,10 +1,10 @@
 package com.bupt.config;
 
 
+import com.bupt.bean.Blue;
 import com.bupt.bean.Person;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import com.bupt.bean.Red;
+import org.springframework.context.annotation.*;
 
 
 /*
@@ -15,14 +15,36 @@ import org.springframework.context.annotation.Scope;
 *
 *
 * */
+
+@Import({Blue.class, Red.class, MyImportSelector.class})
 @Configuration
 public class MainConfig2 {
 
-    @Scope("prototype")
+//    @Scope("prototype")
+    @Lazy
     @Bean
     public Person person() {
         System.out.println("向容器中添加person");
         return new Person("lisi", 22);
     }
+
+
+    @Conditional(WindowsCondition.class)
+    @Bean(value = "rose")
+    public Person person01() {
+
+        return new Person("rose", 50);
+
+    }
+
+    @Conditional(LinuxCondition.class)
+    @Bean(value = "jack")
+    public Person person02() {
+
+        return new Person("jack", 49);
+    }
+
+
+
 
 }
