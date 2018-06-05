@@ -2,17 +2,20 @@ package com.bupt.config;
 
 
 import com.bupt.bean.Person;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import com.bupt.service.BookService;
+import org.springframework.context.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 
+
 @Configuration
-@ComponentScan(value = "com.bupt", excludeFilters = {
-        @ComponentScan.Filter(type=FilterType.ANNOTATION, classes = {Controller.class, Service.class})
+@ComponentScans({
+        @ComponentScan(value = "com.bupt", includeFilters = {
+//                @ComponentScan.Filter(type=FilterType.ANNOTATION, classes = {Controller.class}),
+//                @ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE, classes = {BookService.class}),
+                @ComponentScan.Filter(type=FilterType.CUSTOM, classes = {MyTypeFilter.class})
+        }, useDefaultFilters = false)
 })
 public class MainConfig {
 
