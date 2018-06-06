@@ -16,7 +16,7 @@ import org.springframework.context.annotation.*;
 *
 * */
 
-@Import({Blue.class, Red.class, MyImportSelector.class})
+@Import({Blue.class, Red.class, MyImportSelector.class, MyBeanDefinitionRegistrar.class})
 @Configuration
 public class MainConfig2 {
 
@@ -27,7 +27,6 @@ public class MainConfig2 {
         System.out.println("向容器中添加person");
         return new Person("lisi", 22);
     }
-
 
     @Conditional(WindowsCondition.class)
     @Bean(value = "rose")
