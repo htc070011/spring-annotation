@@ -2,6 +2,7 @@ package com.bupt.config;
 
 
 import com.bupt.bean.Blue;
+import com.bupt.bean.ColorFactory;
 import com.bupt.bean.Person;
 import com.bupt.bean.Red;
 import org.springframework.context.annotation.*;
@@ -43,6 +44,12 @@ public class MainConfig2 {
         return new Person("jack", 49);
     }
 
+
+    @Bean
+    public ColorFactory colorFactory() {
+        return new ColorFactory();
+
+    }
 
 
 

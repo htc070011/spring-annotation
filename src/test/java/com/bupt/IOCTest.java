@@ -54,6 +54,14 @@ public class IOCTest {
     public void test04() {
         printBean(applicationContext);
 
+        //工厂创建的是通过getObject方法返回的对象
+        Object bean1 = applicationContext.getBean("&colorFactory");
+        System.out.println(bean1.getClass());
+        Object bean2 = applicationContext.getBean("colorFactory");
+        System.out.println(bean1 == bean2);
+
+//        System.out.println("class = " + colorFactory.getClass());
+
     }
 
     private void printBean(ApplicationContext applicationContext) {
