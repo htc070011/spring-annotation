@@ -1,8 +1,13 @@
 package com.bupt.bean;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class Person {
 
+    @Value("${name.nickname}")
     private String name;
+
+    @Value("#{26-1}")
     private int age;
 
     public String getName() {

@@ -19,4 +19,5 @@ public class ColorFactory implements FactoryBean<Color> {
     public boolean isSingleton() {
         return false;
     }
+
 }
