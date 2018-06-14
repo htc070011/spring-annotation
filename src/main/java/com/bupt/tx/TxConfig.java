@@ -6,10 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 
+@EnableTransactionManagement
 @ComponentScan("com.bupt.tx")
 @Configuration
 public class TxConfig {
@@ -30,4 +34,11 @@ public class TxConfig {
         return jdbcTemplate;
     }
 
+    @Bean
+    public DataSourceTransactionManager transactionManager() throws PropertyVetoException {
+
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dataSource());
+
+        return transactionManager;
+    }
 }

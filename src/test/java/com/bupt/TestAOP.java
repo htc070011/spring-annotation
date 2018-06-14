@@ -3,6 +3,7 @@ package com.bupt;
 import com.bupt.bean.MathCalculator;
 import com.bupt.config.MainConfigAOP;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TestAOP {
