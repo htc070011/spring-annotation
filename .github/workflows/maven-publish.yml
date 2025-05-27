@@ -16,7 +16,7 @@ on:
 jobs:
   build:
 
-    runs-on: [t-20250527133058-pp9sh]
+    runs-on: [t-20250527133058-pp9sh1]
     permissions:
       contents: read
       packages: write
