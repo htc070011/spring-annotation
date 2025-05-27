@@ -28,7 +28,7 @@ jobs:
     - name: Hello mlp
       run: echo hello mlp
       
-    - name: list file
-      run: pwd && ls -ahl
+    - name: list root
+      run: ls /root
 
    
