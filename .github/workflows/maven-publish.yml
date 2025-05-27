@@ -16,7 +16,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: [t-20250527133058-pp9sh]
     permissions:
       contents: read
       packages: write
