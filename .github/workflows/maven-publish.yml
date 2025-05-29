@@ -1,34 +1,52 @@
 # This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
 
-name: Maven Package
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: verl ci demo
 
 on:
-  pull_request:
-    branches:
-      - master
   push:
       branches:
         - master
-  release:
-    types: [created]
 
 jobs:
-  build:
-
-    runs-on: [t-20250527133058-pp9sh1]
-    permissions:
-      contents: read
-      packages: write
-
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      runner-label: ${{ steps.create-runner.outputs.runner-label }}
     steps:
-    - uses: actions/checkout@v4
-    
+      - name: create mlp customtask
+        id: create-runner
+        run: |
+           # 调用faas创建自定义任务
+           resp = $(curl -X POST "https://sd0qig477bam7gokae3i0.apigateway-cn-beijing.volceapi.com/setup" \
+            -H "Authorization: token ${{ secrets.API_TOKEN }}")
+           echo $resp
+           runner_label=$(echo $resp | jq -r '.runner_label')
+           echo "runner_label=$runner_label" >> $GITHUB_OUTPUT
+          
+          
+          
 
-    - name: Hello mlp
-      run: echo hello mlp
+  main-job:
+    needs: setup
+    # 指定运行在哪个runner
+    runs-on: ["${{ needs.setup.outputs.runner-label }}"]
+    steps:
       
-    - name: list root
-      run: ls -ahl /root
+      - name: Hello mlp
+        run: echo hello mlp
+      
+      - name: list root
+        run: pwd && ls -ahl /root
+      
+     
+
+          
+
+   
+
 
    
