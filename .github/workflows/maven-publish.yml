@@ -33,10 +33,13 @@ jobs:
     needs: setup
     # 指定运行在哪个runner
     runs-on: ["${{ needs.setup.outputs.runner-label }}"]
+    container:
+      image: vemlp-cn-beijing.cr.volces.com/preset-images/python:3.10
     steps:
       
       - name: Hello mlp
         run: echo hello mlp
+        
       
       - name: list root
         run: ls -ahl /root
