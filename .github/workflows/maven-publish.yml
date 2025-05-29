@@ -15,7 +15,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      runner-label: ${{ steps.create-runner.outputs.runner-label }}
+      runner-label: ${{ steps.create-runner.outputs.runner_label }}
     steps:
       - name: create mlp customtask
         id: create-runner
