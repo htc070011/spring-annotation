@@ -3,7 +3,7 @@
 
 # This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
 
-name: verl ci demo
+name: verl ci demo-1
 
 on:
   push:
