@@ -9,7 +9,8 @@ on:
   push:
       branches:
         - master
-
+env:
+  IMAGE: "verl-ci-cn-beijing.cr.volces.com/whatcanyousee/verl:ngc-cu124-vllm0.8.5-sglang0.4.6.post5-mcore0.12.0-te2.3"
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -20,8 +21,8 @@ jobs:
         id: create-runner
         run: |
            # 调用faas创建runner环境
-           resp=$(curl -X POST "https://sd0qig477bam7gokae3i0.apigateway-cn-beijing.volceapi.com/cq_setup" \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}")
+           resp=$(curl -X POST "https://sd10g3clalm04ug7alq90.apigateway-cn-beijing.volceapi.com/runner/create" \
+            -d '{"Image": "${{ env.IMAGE }}"}')
            echo $resp
            runner_label=$(echo $resp | jq -r '.runner_label')
            echo "runner_label=$runner_label" >> $GITHUB_OUTPUT
@@ -33,8 +34,7 @@ jobs:
     needs: setup
     # 指定运行在哪个runner
     runs-on: ["${{ needs.setup.outputs.runner-label }}"]
-    container:
-      image: vemlp-cn-beijing.cr.volces.com/preset-images/python:3.10
+    
     steps:
       
       - name: Hello mlp
